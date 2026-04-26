@@ -14,8 +14,8 @@ export default function AdminRouter() {
   return (
     <AuthProvider>
       <Routes>
-        <Route path="/admin/login" element={<Login />} />
-        <Route path="/admin" element={<ProtectedRoute><AdminLayout /></ProtectedRoute>}>
+        <Route path="login" element={<Login />} />
+        <Route path="/" element={<ProtectedRoute><AdminLayout /></ProtectedRoute>}>
           <Route index element={<Dashboard />} />
           <Route path="analytics" element={<Analytics />} />
           <Route path="seo" element={<SEO />} />
@@ -26,7 +26,7 @@ export default function AdminRouter() {
           <Route path="users" element={<Users />} />
           <Route path="settings" element={<Settings />} />
         </Route>
-        <Route path="/admin/*" element={<Navigate to="/admin" replace />} />
+        <Route path="*" element={<Navigate to="/admin" replace />} />
       </Routes>
     </AuthProvider>
   );

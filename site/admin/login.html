@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login – Admin FLASH</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    body { background: var(--black); display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+
+    .login-bg {
+      position: fixed; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 10% 50%, rgba(204,0,0,.1) 0%, transparent 70%),
+        repeating-linear-gradient(-45deg, transparent, transparent 38px, rgba(204,0,0,.02) 38px, rgba(204,0,0,.02) 39px);
+    }
+
+    .login-card {
+      position: relative; z-index: 1;
+      background: var(--dark-2);
+      border: 1px solid rgba(204,0,0,.2);
+      border-radius: 12px;
+      padding: 2.75rem 2.5rem;
+      width: 100%; max-width: 420px;
+      box-shadow: 0 24px 80px rgba(0,0,0,.6);
+    }
+
+    .login-logo {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .login-logo .logo-name { font-family: var(--font-h); font-size: 2.5rem; color: var(--red); letter-spacing: .15em; display: block; line-height: 1; }
+    .login-logo .logo-sub  { font-size: .65rem; color: var(--yellow); letter-spacing: .2em; text-transform: uppercase; display: block; margin-top: .25rem; }
+    .login-logo .login-tag { font-size: .72rem; color: var(--gray-500); text-transform: uppercase; letter-spacing: .15em; margin-top: 1rem; display: block; }
+
+    .login-divider { width: 100%; height: 1px; background: rgba(255,255,255,.06); margin: 1.5rem 0; }
+
+    .login-group { margin-bottom: 1.25rem; }
+    .login-group label { display: block; font-family: var(--font-h); font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--gray-500); margin-bottom: .45rem; }
+    .login-group input {
+      width: 100%; padding: .9rem 1rem;
+      background: var(--dark-3); border: 1px solid rgba(255,255,255,.08);
+      border-radius: var(--r); color: var(--white); font-size: .95rem;
+      transition: border-color var(--ease); outline: none;
+    }
+    .login-group input:focus { border-color: var(--red); box-shadow: 0 0 0 3px rgba(204,0,0,.08); }
+
+    .login-btn {
+      width: 100%; padding: .95rem;
+      background: var(--red); color: var(--white);
+      font-family: var(--font-h); font-size: 1rem;
+      letter-spacing: .08em; text-transform: uppercase;
+      border: none; border-radius: var(--r);
+      cursor: pointer; transition: var(--ease);
+      margin-top: .5rem;
+    }
+    .login-btn:hover { background: var(--red-dark); }
+    .login-btn:active { transform: scale(.98); }
+    .login-btn:disabled { opacity: .6; cursor: not-allowed; }
+
+    .login-error {
+      background: rgba(204,0,0,.12);
+      border: 1px solid rgba(204,0,0,.3);
+      border-radius: var(--r);
+      color: #ff6b6b;
+      font-size: .82rem;
+      padding: .75rem 1rem;
+      margin-bottom: 1rem;
+      display: none;
+      text-align: center;
+    }
+    .login-error.show { display: block; animation: shake .35s ease; }
+
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      20%,60%  { transform: translateX(-6px); }
+      40%,80%  { transform: translateX(6px); }
+    }
+
+    .login-footer { text-align: center; margin-top: 1.5rem; }
+    .login-footer a { font-size: .78rem; color: var(--gray-500); transition: var(--ease); }
+    .login-footer a:hover { color: var(--red); }
+
+    .show-pass-btn {
+      position: absolute; right: .75rem; top: 50%; transform: translateY(-50%);
+      background: none; border: none; cursor: pointer; color: var(--gray-500);
+      font-size: .85rem; transition: color var(--ease); padding: .25rem;
+    }
+    .show-pass-btn:hover { color: var(--white); }
+    .pass-wrap { position: relative; }
+  </style>
+</head>
+<body>
+<div class="login-bg" aria-hidden="true"></div>
+
+<div class="login-card">
+  <div class="login-logo">
+    <span class="logo-name">FLASH</span>
+    <span class="logo-sub">Metalúrgica &amp; Portas Automáticas</span>
+    <span class="login-tag">Painel Administrativo</span>
+  </div>
+
+  <div class="login-divider"></div>
+
+  <div class="login-error" id="login-error">Usuário ou senha incorretos. Tente novamente.</div>
+
+  <form id="login-form" novalidate>
+    <div class="login-group">
+      <label for="username">Usuário</label>
+      <input type="text" id="username" name="username" placeholder="Digite seu usuário" autocomplete="username" autofocus>
+    </div>
+    <div class="login-group">
+      <label for="password">Senha</label>
+      <div class="pass-wrap">
+        <input type="password" id="password" name="password" placeholder="Digite sua senha" autocomplete="current-password">
+        <button type="button" class="show-pass-btn" id="toggle-pass" title="Mostrar/ocultar senha">👁️</button>
+      </div>
+    </div>
+    <button type="submit" class="login-btn" id="login-btn">Entrar no Painel</button>
+  </form>
+
+  <div class="login-footer">
+    <a href="../index.html">← Voltar ao site</a>
+  </div>
+</div>
+
+<script>
+  /* Credenciais — altere aqui */
+  const CREDENTIALS = { user: 'flash', pass: 'flash2025' };
+
+  /* Se já está logado, vai direto pro dashboard */
+  if (sessionStorage.getItem('flash_admin_auth') === '1') {
+    window.location.replace('index.html');
+  }
+
+  const form   = document.getElementById('login-form');
+  const errBox = document.getElementById('login-error');
+  const btn    = document.getElementById('login-btn');
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const u = document.getElementById('username').value.trim();
+    const p = document.getElementById('password').value;
+
+    btn.disabled = true;
+    btn.textContent = 'Verificando...';
+
+    setTimeout(() => {
+      if (u === CREDENTIALS.user && p === CREDENTIALS.pass) {
+        sessionStorage.setItem('flash_admin_auth', '1');
+        btn.textContent = '✅ Redirecionando...';
+        setTimeout(() => window.location.replace('index.html'), 500);
+      } else {
+        errBox.classList.add('show');
+        btn.disabled = false;
+        btn.textContent = 'Entrar no Painel';
+        document.getElementById('password').value = '';
+        document.getElementById('password').focus();
+        setTimeout(() => errBox.classList.remove('show'), 4000);
+      }
+    }, 600);
+  });
+
+  document.getElementById('toggle-pass').addEventListener('click', function () {
+    const inp = document.getElementById('password');
+    inp.type = inp.type === 'password' ? 'text' : 'password';
+    this.textContent = inp.type === 'password' ? '👁️' : '🙈';
+  });
+</script>
+</body>
+</html>

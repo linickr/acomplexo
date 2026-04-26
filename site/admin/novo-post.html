@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Novo Post – Admin FLASH</title>
+  <meta name="robots" content="noindex, nofollow">
+  <script>if(sessionStorage.getItem("flash_admin_auth")!=="1"){sessionStorage.setItem("flash_redirect",location.href);location.replace("login.html")}</script>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="https://cdn.quilljs.com/1.3.7/quill.snow.css">
+</head>
+<body class="admin-body">
+<div class="admin-layout">
+
+  <aside class="adm-sidebar" id="adm-sidebar">
+    <div class="adm-sidebar-logo">
+      <div class="adm-logo-icon">F</div>
+      <div><div class="adm-logo-name">FLASH</div><div class="adm-logo-sub">Painel Admin</div></div>
+    </div>
+    <nav class="adm-nav">
+      <div class="adm-nav-section">Menu Principal</div>
+      <a href="index.html"><span class="ni">📊</span> Dashboard</a>
+      <a href="posts.html"><span class="ni">📝</span> Gerenciar Posts</a>
+      <a href="novo-post.html" class="active"><span class="ni">✏️</span> Novo Post</a>
+      <div class="adm-nav-section">SEO & Conteúdo</div>
+      <a href="agendamento.html"><span class="ni">📅</span> Agendamento</a>
+      <a href="palavras-chave.html"><span class="ni">🔑</span> Palavras-chave</a>
+      <a href="gsc.html"><span class="ni">📈</span> Search Console</a>
+    </nav>
+    <div class="adm-sidebar-foot">
+      <a href="../index.html" class="adm-site-link" target="_blank">↗ Ver o site ao vivo</a>
+      <button class="adm-logout-btn" onclick="adminLogout()">&#x2192; Sair</button>
+    </div>
+  </aside>
+
+  <main class="adm-main">
+    <div class="adm-topbar">
+      <div class="adm-title-grp">
+        <h1 class="adm-page-title">Novo Post</h1>
+        <p class="adm-page-sub">Crie um novo artigo para o blog da FLASH</p>
+      </div>
+      <div class="adm-topbar-actions">
+        <button class="btn btn-dark btn-sm" onclick="savePost('rascunho')">💾 Salvar Rascunho</button>
+        <button class="btn btn-primary btn-sm" onclick="savePost('publicar')">🚀 Publicar</button>
+      </div>
+    </div>
+
+    <div class="adm-grid-2" style="align-items:start;">
+      <!-- Editor principal -->
+      <div style="grid-column: span 1;">
+
+        <!-- Título -->
+        <div class="adm-form-group">
+          <label>Título do Post *</label>
+          <input type="text" id="post-title" placeholder="Ex: Portão automático em Vila Velha: tipos, preços e como escolher" oninput="updateSeoPreview()">
+        </div>
+
+        <!-- Slug -->
+        <div class="adm-form-group">
+          <label>URL (Slug)</label>
+          <div style="display:flex; gap:.5rem; align-items:center;">
+            <span style="color:var(--gray-500); font-size:.82rem; white-space:nowrap;">flash.../ blog/</span>
+            <input type="text" id="post-slug" placeholder="portao-automatico-vila-velha" style="flex:1;">
+          </div>
+        </div>
+
+        <!-- Resumo / Excerpt -->
+        <div class="adm-form-group">
+          <label>Resumo / Excerpt (usado no card do blog)</label>
+          <textarea id="post-excerpt" rows="2" placeholder="Breve descrição do artigo para aparecer na listagem do blog e nas redes sociais..." oninput="updateSeoPreview()"></textarea>
+        </div>
+
+        <!-- Editor Quill -->
+        <div class="adm-form-group">
+          <label>Conteúdo do Post</label>
+          <div id="editor"></div>
+        </div>
+
+        <!-- Imagem de capa -->
+        <div class="adm-form-group">
+          <label>Imagem de Capa (URL ou upload)</label>
+          <input type="url" id="post-image" placeholder="https://... ou arraste uma imagem">
+        </div>
+
+      </div>
+
+      <!-- Painel lateral SEO -->
+      <div>
+        <!-- Publicação -->
+        <div class="adm-card" style="margin-bottom:1.5rem;">
+          <div class="adm-card-head"><span class="adm-card-title">Publicação</span></div>
+          <div class="adm-card-body">
+            <div class="adm-form-group">
+              <label>Status</label>
+              <select id="post-status">
+                <option value="rascunho">Rascunho</option>
+                <option value="agendado">Agendado</option>
+                <option value="publicado">Publicar agora</option>
+              </select>
+            </div>
+            <div class="adm-form-group" id="schedule-date-group" style="display:none;">
+              <label>Data de Publicação</label>
+              <input type="datetime-local" id="post-date">
+            </div>
+            <div class="adm-form-group">
+              <label>Categoria</label>
+              <select id="post-category">
+                <option value="">Selecione...</option>
+                <option value="portoes">Portões Automáticos</option>
+                <option value="grades">Grades de Proteção</option>
+                <option value="galpoes">Galpões e Telhados</option>
+                <option value="estruturas">Estruturas Metálicas</option>
+                <option value="manutencao">Manutenção</option>
+                <option value="local">Serralheria Local</option>
+              </select>
+            </div>
+            <div style="display:flex; gap:.6rem; flex-direction:column;">
+              <button class="btn btn-primary btn-sm" style="width:100%; justify-content:center;" onclick="savePost('publicar')">🚀 Publicar</button>
+              <button class="btn btn-dark btn-sm" style="width:100%; justify-content:center;" onclick="savePost('rascunho')">💾 Salvar Rascunho</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- SEO -->
+        <div class="adm-card" style="margin-bottom:1.5rem;">
+          <div class="adm-card-head"><span class="adm-card-title">SEO</span></div>
+          <div class="adm-card-body">
+            <div class="adm-form-group">
+              <label>Título SEO (meta title)</label>
+              <input type="text" id="seo-title" placeholder="Ex: Portão automático em Vila Velha: guia 2025 | FLASH" oninput="updateSeoPreview()">
+              <span id="seo-title-count" style="font-size:.68rem; color:var(--gray-500);">0/60 caracteres</span>
+            </div>
+            <div class="adm-form-group">
+              <label>Meta Description</label>
+              <textarea id="seo-desc" rows="3" placeholder="Descrição para aparecer no Google (máx. 160 caracteres)..." oninput="updateSeoPreview()"></textarea>
+              <span id="seo-desc-count" style="font-size:.68rem; color:var(--gray-500);">0/160 caracteres</span>
+            </div>
+            <div class="adm-form-group">
+              <label>Palavra-chave Principal (foco)</label>
+              <input type="text" id="seo-kw" placeholder="Ex: portão automático Vila Velha" oninput="updateSeoPreview()">
+            </div>
+            <!-- Preview -->
+            <label style="font-family:var(--font-h); font-size:.7rem; letter-spacing:.14em; text-transform:uppercase; color:var(--gray-500); margin-bottom:.5rem; display:block;">Preview Google</label>
+            <div class="seo-preview">
+              <div class="seo-prev-url" id="prev-url">flashmetalurgica.com.br/blog/</div>
+              <div class="seo-prev-ttl" id="prev-ttl">Título do Post | FLASH Metalúrgica</div>
+              <div class="seo-prev-desc" id="prev-desc">Meta description do artigo aparecerá aqui...</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Palavras-chave relacionadas -->
+        <div class="adm-card">
+          <div class="adm-card-head"><span class="adm-card-title">Palavras-chave LSI</span></div>
+          <div class="adm-card-body">
+            <p style="font-size:.78rem; color:var(--gray-500); margin-bottom:1rem;">Use essas palavras-chave naturalmente no conteúdo:</p>
+            <div style="display:flex; flex-wrap:wrap; gap:.4rem;" id="lsi-tags">
+              <span class="kw-tag">serralheria Vila Velha</span>
+              <span class="kw-tag">portão automático ES</span>
+              <span class="kw-tag">automação de portão</span>
+              <span class="kw-tag">serralheria Cobilândia</span>
+              <span class="kw-tag">metalúrgica Vila Velha</span>
+              <span class="kw-tag">portão de garagem</span>
+              <span class="kw-tag">FLASH Metalúrgica</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
+<script>
+const quill = new Quill('#editor', {
+  theme: 'snow',
+  placeholder: 'Escreva o conteúdo do artigo aqui. Use h2, h3 para estruturar o texto e otimize para SEO com a palavra-chave foco...',
+  modules: {
+    toolbar: [
+      [{ header: [1,2,3,false] }],
+      ['bold','italic','underline'],
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      ['blockquote', 'code-block'],
+      ['link', 'image'],
+      ['clean']
+    ]
+  }
+});
+
+document.getElementById('post-status').addEventListener('change', function() {
+  document.getElementById('schedule-date-group').style.display = this.value === 'agendado' ? 'block' : 'none';
+});
+
+document.getElementById('post-title').addEventListener('input', function() {
+  const slug = this.value.toLowerCase()
+    .normalize('NFD').replace(/[̀-ͯ]/g,'')
+    .replace(/[^a-z0-9\s-]/g,'')
+    .replace(/\s+/g,'-').replace(/-+/g,'-');
+  document.getElementById('post-slug').value = slug;
+});
+
+function updateSeoPreview() {
+  const title = document.getElementById('seo-title').value || document.getElementById('post-title').value || 'Título do Post';
+  const desc  = document.getElementById('seo-desc').value || document.getElementById('post-excerpt').value || 'Meta description aqui...';
+  const slug  = document.getElementById('post-slug').value || 'slug-do-post';
+
+  document.getElementById('prev-url').textContent = 'flashmetalurgica.com.br/blog/' + slug;
+  document.getElementById('prev-ttl').textContent = (title + ' | FLASH Metalúrgica').slice(0,70);
+  document.getElementById('prev-desc').textContent = desc.slice(0,160);
+
+  const titleCount = (document.getElementById('seo-title').value || '').length;
+  const descCount  = (document.getElementById('seo-desc').value || '').length;
+  document.getElementById('seo-title-count').textContent = titleCount + '/60 caracteres';
+  document.getElementById('seo-title-count').style.color = titleCount > 60 ? 'var(--red)' : 'var(--gray-500)';
+  document.getElementById('seo-desc-count').textContent = descCount + '/160 caracteres';
+  document.getElementById('seo-desc-count').style.color = descCount > 160 ? 'var(--red)' : 'var(--gray-500)';
+}
+
+function savePost(action) {
+  const title = document.getElementById('post-title').value;
+  if (!title) { alert('Digite o título do post antes de salvar.'); return; }
+  const msg = action === 'publicar' ? '✅ Post publicado com sucesso!' : '💾 Rascunho salvo!';
+  const toast = document.createElement('div');
+  toast.style.cssText = 'position:fixed;bottom:2rem;right:2rem;background:var(--dark-2);border:1px solid rgba(204,0,0,.3);color:var(--white);padding:1rem 1.5rem;border-radius:8px;font-family:var(--font-h);font-size:.9rem;text-transform:uppercase;letter-spacing:.05em;z-index:9999;box-shadow:0 4px 20px rgba(0,0,0,.4);';
+  toast.textContent = msg;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 3000);
+}
+</script>
+<script>
+function adminLogout() {
+  sessionStorage.removeItem('flash_admin_auth');
+  window.location.replace('login.html');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard – Admin FLASH Metalúrgica</title>
+  <meta name="robots" content="noindex, nofollow">
+  <script>if(sessionStorage.getItem("flash_admin_auth")!=="1"){sessionStorage.setItem("flash_redirect",location.href);location.replace("login.html")}</script>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body class="admin-body">
+<div class="admin-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="adm-sidebar" id="adm-sidebar">
+    <div class="adm-sidebar-logo">
+      <div class="adm-logo-icon">F</div>
+      <div>
+        <div class="adm-logo-name">FLASH</div>
+        <div class="adm-logo-sub">Painel Admin</div>
+      </div>
+    </div>
+    <nav class="adm-nav">
+      <div class="adm-nav-section">Menu Principal</div>
+      <a href="index.html" class="active"><span class="ni">📊</span> Dashboard</a>
+      <a href="posts.html"><span class="ni">📝</span> Gerenciar Posts</a>
+      <a href="novo-post.html"><span class="ni">✏️</span> Novo Post</a>
+      <div class="adm-nav-section">SEO & Conteúdo</div>
+      <a href="agendamento.html"><span class="ni">📅</span> Agendamento</a>
+      <a href="palavras-chave.html"><span class="ni">🔑</span> Palavras-chave</a>
+      <a href="gsc.html"><span class="ni">📈</span> Search Console</a>
+    </nav>
+    <div class="adm-sidebar-foot">
+      <a href="../index.html" class="adm-site-link" target="_blank">↗ Ver o site ao vivo</a>
+      <button class="adm-logout-btn" onclick="adminLogout()">&#x2192; Sair</button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="adm-main">
+    <div class="adm-topbar">
+      <div class="adm-title-grp">
+        <h1 class="adm-page-title">Dashboard</h1>
+        <p class="adm-page-sub">Bem-vindo, FLASH! Aqui está um resumo do seu site.</p>
+      </div>
+      <div class="adm-topbar-actions">
+        <a href="novo-post.html" class="btn btn-primary btn-sm">+ Novo Post</a>
+        <a href="../index.html" class="btn btn-dark btn-sm" target="_blank">↗ Ver site</a>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="adm-stats">
+      <div class="adm-stat" style="--acc:var(--red);">
+        <div class="adm-stat-lbl">Visitas (30 dias)</div>
+        <div class="adm-stat-val">1.247</div>
+        <div class="adm-stat-chg">↑ +18% vs. mês anterior</div>
+        <div class="adm-stat-ico">👁️</div>
+      </div>
+      <div class="adm-stat" style="--acc:var(--yellow);">
+        <div class="adm-stat-lbl">Posts Publicados</div>
+        <div class="adm-stat-val">6</div>
+        <div class="adm-stat-chg">↑ +3 este mês</div>
+        <div class="adm-stat-ico">📝</div>
+      </div>
+      <div class="adm-stat" style="--acc:#4CAF50;">
+        <div class="adm-stat-lbl">Palavras-chave Monitoradas</div>
+        <div class="adm-stat-val">20</div>
+        <div class="adm-stat-chg">↑ 8 no top 10 Google</div>
+        <div class="adm-stat-ico">🔑</div>
+      </div>
+      <div class="adm-stat" style="--acc:#2196F3;">
+        <div class="adm-stat-lbl">Orçamentos (WhatsApp)</div>
+        <div class="adm-stat-val">34</div>
+        <div class="adm-stat-chg">↑ +22% este mês</div>
+        <div class="adm-stat-ico">💬</div>
+      </div>
+    </div>
+
+    <div class="adm-grid-2">
+      <!-- Gráfico de visitas -->
+      <div class="chart-wrap">
+        <div class="chart-head">
+          <span class="chart-ttl">Visitas ao site – últimos 7 meses</span>
+          <span class="badge b-success">+18%</span>
+        </div>
+        <div class="chart-canvas">
+          <canvas id="chartVisitas" height="200"></canvas>
+        </div>
+      </div>
+
+      <!-- Posts recentes -->
+      <div class="adm-card">
+        <div class="adm-card-head">
+          <span class="adm-card-title">Posts Recentes</span>
+          <a href="posts.html" class="btn btn-dark btn-sm">Ver todos</a>
+        </div>
+        <table class="adm-table">
+          <thead>
+            <tr>
+              <th>Título</th>
+              <th>Status</th>
+              <th>Data</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Portão automático em Vila Velha: tipos, preços...</td>
+              <td><span class="badge b-success">Publicado</span></td>
+              <td>03/05/25</td>
+            </tr>
+            <tr>
+              <td>Grades de proteção: guia completo para Vila Velha</td>
+              <td><span class="badge b-success">Publicado</span></td>
+              <td>10/05/25</td>
+            </tr>
+            <tr>
+              <td>Serralheria em Cobilândia: por que a FLASH...</td>
+              <td><span class="badge b-success">Publicado</span></td>
+              <td>17/05/25</td>
+            </tr>
+            <tr>
+              <td>Quanto custa instalar um portão automático...</td>
+              <td><span class="badge b-warning">Agendado</span></td>
+              <td>24/05/25</td>
+            </tr>
+            <tr>
+              <td>Estrutura metálica: vantagens para residências...</td>
+              <td><span class="badge b-gray">Rascunho</span></td>
+              <td>—</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="adm-grid-2">
+      <!-- Palavras-chave destaque -->
+      <div class="adm-card">
+        <div class="adm-card-head">
+          <span class="adm-card-title">Palavras-chave em Destaque</span>
+          <a href="palavras-chave.html" class="btn btn-dark btn-sm">Ver todas</a>
+        </div>
+        <table class="adm-table">
+          <thead>
+            <tr><th>Palavra-chave</th><th>Posição</th><th>Tendência</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>serralheria Vila Velha</td>
+              <td><span class="badge b-success">#3</span></td>
+              <td style="color:#4CAF50;">↑ +2</td>
+            </tr>
+            <tr>
+              <td>portão automático Vila Velha</td>
+              <td><span class="badge b-success">#5</span></td>
+              <td style="color:#4CAF50;">↑ +4</td>
+            </tr>
+            <tr>
+              <td>grades de proteção Vila Velha ES</td>
+              <td><span class="badge b-warning">#9</span></td>
+              <td style="color:#4CAF50;">↑ +1</td>
+            </tr>
+            <tr>
+              <td>portão automático Cobilândia</td>
+              <td><span class="badge b-info">#12</span></td>
+              <td style="color:var(--yellow);">→ 0</td>
+            </tr>
+            <tr>
+              <td>metalúrgica Vila Velha ES</td>
+              <td><span class="badge b-warning">#7</span></td>
+              <td style="color:#4CAF50;">↑ +3</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Próximos posts -->
+      <div class="adm-card">
+        <div class="adm-card-head">
+          <span class="adm-card-title">Calendário — Próximos Posts</span>
+          <a href="agendamento.html" class="btn btn-dark btn-sm">Ver calendário</a>
+        </div>
+        <div class="adm-card-body">
+          <div style="display:flex; flex-direction:column; gap:.875rem;">
+            <div style="display:flex; gap:1rem; align-items:center; padding:.875rem; background:var(--dark-3); border-radius:var(--r); border-left:3px solid var(--red);">
+              <div style="min-width:46px; text-align:center;">
+                <div style="font-family:var(--font-h); font-size:1.4rem; color:var(--red); line-height:1;">24</div>
+                <div style="font-size:.62rem; color:var(--gray-500); text-transform:uppercase;">Mai</div>
+              </div>
+              <div>
+                <div style="font-family:var(--font-h); font-size:.85rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:.2rem;">Quanto custa portão automático em Vila Velha?</div>
+                <div style="font-size:.72rem; color:var(--yellow);">📌 portão automático Vila Velha</div>
+              </div>
+            </div>
+            <div style="display:flex; gap:1rem; align-items:center; padding:.875rem; background:var(--dark-3); border-radius:var(--r); border-left:3px solid var(--yellow);">
+              <div style="min-width:46px; text-align:center;">
+                <div style="font-family:var(--font-h); font-size:1.4rem; color:var(--yellow); line-height:1;">31</div>
+                <div style="font-size:.62rem; color:var(--gray-500); text-transform:uppercase;">Mai</div>
+              </div>
+              <div>
+                <div style="font-family:var(--font-h); font-size:.85rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:.2rem;">Estrutura metálica: vantagens no ES</div>
+                <div style="font-size:.72rem; color:var(--yellow);">📌 estrutura metálica Vila Velha</div>
+              </div>
+            </div>
+            <div style="display:flex; gap:1rem; align-items:center; padding:.875rem; background:var(--dark-3); border-radius:var(--r); border-left:3px solid rgba(255,255,255,.1);">
+              <div style="min-width:46px; text-align:center;">
+                <div style="font-family:var(--font-h); font-size:1.4rem; color:var(--gray-500); line-height:1;">07</div>
+                <div style="font-size:.62rem; color:var(--gray-500); text-transform:uppercase;">Jun</div>
+              </div>
+              <div>
+                <div style="font-family:var(--font-h); font-size:.85rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:.2rem;">Manutenção de portão automático</div>
+                <div style="font-size:.72rem; color:var(--gray-500);">📌 manutenção portão automático Vila Velha</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+const ctx = document.getElementById('chartVisitas');
+if (ctx) {
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ['Nov', 'Dez', 'Jan', 'Fev', 'Mar', 'Abr', 'Mai'],
+      datasets: [{
+        label: 'Visitas',
+        data: [420, 510, 580, 720, 890, 1050, 1247],
+        borderColor: '#CC0000',
+        backgroundColor: 'rgba(204,0,0,0.08)',
+        borderWidth: 2,
+        pointBackgroundColor: '#FFD700',
+        pointRadius: 4,
+        tension: 0.4,
+        fill: true
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: false }
+      },
+      scales: {
+        x: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#777' } },
+        y: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#777' } }
+      }
+    }
+  });
+}
+</script>
+<script>
+function adminLogout() {
+  sessionStorage.removeItem('flash_admin_auth');
+  window.location.replace('login.html');
+}
+</script>
+</body>
+</html>

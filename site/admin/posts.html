@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerenciar Posts – Admin FLASH</title>
+  <meta name="robots" content="noindex, nofollow">
+  <script>if(sessionStorage.getItem("flash_admin_auth")!=="1"){sessionStorage.setItem("flash_redirect",location.href);location.replace("login.html")}</script>
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="admin-body">
+<div class="admin-layout">
+
+  <aside class="adm-sidebar" id="adm-sidebar">
+    <div class="adm-sidebar-logo">
+      <div class="adm-logo-icon">F</div>
+      <div><div class="adm-logo-name">FLASH</div><div class="adm-logo-sub">Painel Admin</div></div>
+    </div>
+    <nav class="adm-nav">
+      <div class="adm-nav-section">Menu Principal</div>
+      <a href="index.html"><span class="ni">📊</span> Dashboard</a>
+      <a href="posts.html" class="active"><span class="ni">📝</span> Gerenciar Posts</a>
+      <a href="novo-post.html"><span class="ni">✏️</span> Novo Post</a>
+      <div class="adm-nav-section">SEO & Conteúdo</div>
+      <a href="agendamento.html"><span class="ni">📅</span> Agendamento</a>
+      <a href="palavras-chave.html"><span class="ni">🔑</span> Palavras-chave</a>
+      <a href="gsc.html"><span class="ni">📈</span> Search Console</a>
+    </nav>
+    <div class="adm-sidebar-foot">
+      <a href="../index.html" class="adm-site-link" target="_blank">↗ Ver o site ao vivo</a>
+      <button class="adm-logout-btn" onclick="adminLogout()">&#x2192; Sair</button>
+    </div>
+  </aside>
+
+  <main class="adm-main">
+    <div class="adm-topbar">
+      <div class="adm-title-grp">
+        <h1 class="adm-page-title">Gerenciar Posts</h1>
+        <p class="adm-page-sub">6 posts no total · 3 publicados · 1 agendado · 2 rascunhos</p>
+      </div>
+      <div class="adm-topbar-actions">
+        <a href="novo-post.html" class="btn btn-primary btn-sm">+ Novo Post</a>
+      </div>
+    </div>
+
+    <!-- Filtros -->
+    <div style="display:flex; gap:.6rem; flex-wrap:wrap; margin-bottom:1.5rem;">
+      <button class="filter-btn active" onclick="filterPosts(this,'all')">Todos (6)</button>
+      <button class="filter-btn" onclick="filterPosts(this,'publicado')">Publicados (3)</button>
+      <button class="filter-btn" onclick="filterPosts(this,'agendado')">Agendados (1)</button>
+      <button class="filter-btn" onclick="filterPosts(this,'rascunho')">Rascunhos (2)</button>
+    </div>
+
+    <!-- Busca -->
+    <div class="adm-form-group" style="margin-bottom:1.5rem; max-width:400px;">
+      <input type="search" placeholder="🔍 Buscar posts por título ou palavra-chave..." id="post-search">
+    </div>
+
+    <!-- Tabela -->
+    <div class="adm-card">
+      <table class="adm-table" id="posts-table">
+        <thead>
+          <tr>
+            <th style="width:40px;"><input type="checkbox"></th>
+            <th>Título / Palavra-chave</th>
+            <th>Categoria</th>
+            <th>Status</th>
+            <th>Data</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="posts-body">
+          <tr data-status="publicado">
+            <td><input type="checkbox"></td>
+            <td>
+              <div style="font-weight:500; color:var(--white); margin-bottom:.2rem;">Portão automático em Vila Velha: tipos, preços e como escolher</div>
+              <div style="font-size:.72rem; color:var(--yellow);">🔑 portão automático Vila Velha</div>
+            </td>
+            <td>Portões Automáticos</td>
+            <td><span class="badge b-success">Publicado</span></td>
+            <td>03/05/25</td>
+            <td>
+              <div style="display:flex; gap:.4rem;">
+                <a href="../blog/post-exemplo.html" class="btn btn-dark btn-sm btn-icon" title="Ver post" target="_blank">👁️</a>
+                <a href="novo-post.html" class="btn btn-dark btn-sm btn-icon" title="Editar">✏️</a>
+                <button class="btn btn-sm btn-icon" style="background:rgba(204,0,0,.15);color:var(--red);" title="Excluir" onclick="confirmDelete(this)">🗑️</button>
+              </div>
+            </td>
+          </tr>
+          <tr data-status="publicado">
+            <td><input type="checkbox"></td>
+            <td>
+              <div style="font-weight:500; color:var(--white); margin-bottom:.2rem;">Grades de proteção: o guia completo para sua casa em Vila Velha</div>
+              <div style="font-size:.72rem; color:var(--yellow);">🔑 grades de proteção Vila Velha ES</div>
+            </td>
+            <td>Grades de Proteção</td>
+            <td><span class="badge b-success">Publicado</span></td>
+            <td>10/05/25</td>
+            <td>
+              <div style="display:flex; gap:.4rem;">
+                <a href="../blog/index.html" class="btn btn-dark btn-sm btn-icon" title="Ver post" target="_blank">👁️</a>
+                <a href="novo-post.html" class="btn btn-dark btn-sm btn-icon" title="Editar">✏️</a>
+                <button class="btn btn-sm btn-icon" style="background:rgba(204,0,0,.15);color:var(--red);" title="Excluir" onclick="confirmDelete(this)">🗑️</button>
+              </div>
+            </td>
+          </tr>
+          <tr data-status="publicado">
+            <td><input type="checkbox"></td>
+            <td>
+              <div style="font-weight:500; color:var(--white); margin-bottom:.2rem;">Serralheria em Cobilândia: por que a FLASH é a escolha certa?</div>
+              <div style="font-size:.72rem; color:var(--yellow);">🔑 serralheria Cobilândia</div>
+            </td>
+            <td>Serralheria Local</td>
+            <td><span class="badge b-success">Publicado</span></td>
+            <td>17/05/25</td>
+            <td>
+              <div style="display:flex; gap:.4rem;">
+                <a href="../blog/index.html" class="btn btn-dark btn-sm btn-icon" title="Ver post" target="_blank">👁️</a>
+                <a href="novo-post.html" class="btn btn-dark btn-sm btn-icon" title="Editar">✏️</a>
+                <button class="btn btn-sm btn-icon" style="background:rgba(204,0,0,.15);color:var(--red);" title="Excluir" onclick="confirmDelete(this)">🗑️</button>
+              </div>
+            </td>
+          </tr>
+          <tr data-status="agendado">
+            <td><input type="checkbox"></td>
+            <td>
+              <div style="font-weight:500; color:var(--white); margin-bottom:.2rem;">Quanto custa instalar um portão automático em Vila Velha?</div>
+              <div style="font-size:.72rem; color:var(--yellow);">🔑 quanto custa portão automático Vila Velha</div>
+            </td>
+            <td>Portões Automáticos</td>
+            <td><span class="badge b-warning">Agendado 24/05</span></td>
+            <td>24/05/25</td>
+            <td>
+              <div style="display:flex; gap:.4rem;">
+                <a href="novo-post.html" class="btn btn-dark btn-sm btn-icon" title="Editar">✏️</a>
+                <button class="btn btn-sm btn-icon" style="background:rgba(204,0,0,.15);color:var(--red);" title="Excluir" onclick="confirmDelete(this)">🗑️</button>
+              </div>
+            </td>
+          </tr>
+          <tr data-status="rascunho">
+            <td><input type="checkbox"></td>
+            <td>
+              <div style="font-weight:500; color:var(--white); margin-bottom:.2rem;">Estrutura metálica: vantagens para residências e empresas no ES</div>
+              <div style="font-size:.72rem; color:var(--gray-500);">🔑 estrutura metálica Vila Velha</div>
+            </td>
+            <td>Estruturas Metálicas</td>
+            <td><span class="badge b-gray">Rascunho</span></td>
+            <td>—</td>
+            <td>
+              <div style="display:flex; gap:.4rem;">
+                <a href="novo-post.html" class="btn btn-dark btn-sm btn-icon" title="Editar">✏️</a>
+                <button class="btn btn-sm btn-icon" style="background:rgba(204,0,0,.15);color:var(--red);" title="Excluir" onclick="confirmDelete(this)">🗑️</button>
+              </div>
+            </td>
+          </tr>
+          <tr data-status="rascunho">
+            <td><input type="checkbox"></td>
+            <td>
+              <div style="font-weight:500; color:var(--white); margin-bottom:.2rem;">Manutenção de portão automático: quando fazer e por quê?</div>
+              <div style="font-size:.72rem; color:var(--gray-500);">🔑 manutenção portão automático Vila Velha</div>
+            </td>
+            <td>Manutenção</td>
+            <td><span class="badge b-gray">Rascunho</span></td>
+            <td>—</td>
+            <td>
+              <div style="display:flex; gap:.4rem;">
+                <a href="novo-post.html" class="btn btn-dark btn-sm btn-icon" title="Editar">✏️</a>
+                <button class="btn btn-sm btn-icon" style="background:rgba(204,0,0,.15);color:var(--red);" title="Excluir" onclick="confirmDelete(this)">🗑️</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+
+<script>
+function filterPosts(btn, status) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#posts-body tr').forEach(tr => {
+    tr.style.display = (status === 'all' || tr.dataset.status === status) ? '' : 'none';
+  });
+}
+document.getElementById('post-search').addEventListener('input', function() {
+  const q = this.value.toLowerCase();
+  document.querySelectorAll('#posts-body tr').forEach(tr => {
+    tr.style.display = tr.textContent.toLowerCase().includes(q) ? '' : 'none';
+  });
+});
+function confirmDelete(btn) {
+  if (confirm('Tem certeza que deseja excluir este post? Esta ação não pode ser desfeita.')) {
+    btn.closest('tr').style.opacity = '.4';
+    setTimeout(() => btn.closest('tr').remove(), 400);
+  }
+}
+</script>
+<script>
+function adminLogout() {
+  sessionStorage.removeItem('flash_admin_auth');
+  window.location.replace('login.html');
+}
+</script>
+</body>
+</html>

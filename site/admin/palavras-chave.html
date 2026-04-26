@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Planejamento de Palavras-chave – Admin FLASH</title>
+  <meta name="robots" content="noindex, nofollow">
+  <script>if(sessionStorage.getItem("flash_admin_auth")!=="1"){sessionStorage.setItem("flash_redirect",location.href);location.replace("login.html")}</script>
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="admin-body">
+<div class="admin-layout">
+
+  <aside class="adm-sidebar" id="adm-sidebar">
+    <div class="adm-sidebar-logo">
+      <div class="adm-logo-icon">F</div>
+      <div><div class="adm-logo-name">FLASH</div><div class="adm-logo-sub">Painel Admin</div></div>
+    </div>
+    <nav class="adm-nav">
+      <div class="adm-nav-section">Menu Principal</div>
+      <a href="index.html"><span class="ni">📊</span> Dashboard</a>
+      <a href="posts.html"><span class="ni">📝</span> Gerenciar Posts</a>
+      <a href="novo-post.html"><span class="ni">✏️</span> Novo Post</a>
+      <div class="adm-nav-section">SEO & Conteúdo</div>
+      <a href="agendamento.html"><span class="ni">📅</span> Agendamento</a>
+      <a href="palavras-chave.html" class="active"><span class="ni">🔑</span> Palavras-chave</a>
+      <a href="gsc.html"><span class="ni">📈</span> Search Console</a>
+    </nav>
+    <div class="adm-sidebar-foot">
+      <a href="../index.html" class="adm-site-link" target="_blank">↗ Ver o site ao vivo</a>
+      <button class="adm-logout-btn" onclick="adminLogout()">&#x2192; Sair</button>
+    </div>
+  </aside>
+
+  <main class="adm-main">
+    <div class="adm-topbar">
+      <div class="adm-title-grp">
+        <h1 class="adm-page-title">Planejamento de Palavras-chave</h1>
+        <p class="adm-page-sub">20 palavras-chave mapeadas para serralheria em Vila Velha ES</p>
+      </div>
+      <div class="adm-topbar-actions">
+        <button class="btn btn-primary btn-sm" onclick="addKeyword()">+ Adicionar Palavra-chave</button>
+      </div>
+    </div>
+
+    <!-- Sumário -->
+    <div class="adm-stats" style="margin-bottom:2rem;">
+      <div class="adm-stat" style="--acc:var(--red);"><div class="adm-stat-lbl">Total KWs</div><div class="adm-stat-val">20</div><div class="adm-stat-ico">🔑</div></div>
+      <div class="adm-stat" style="--acc:var(--yellow);"><div class="adm-stat-lbl">Prioridade Alta</div><div class="adm-stat-val">11</div><div class="adm-stat-ico">🔥</div></div>
+      <div class="adm-stat" style="--acc:#4CAF50;"><div class="adm-stat-lbl">Com Conteúdo</div><div class="adm-stat-val">6</div><div class="adm-stat-ico">✅</div></div>
+      <div class="adm-stat" style="--acc:#2196F3;"><div class="adm-stat-lbl">Sem Conteúdo</div><div class="adm-stat-val">14</div><div class="adm-stat-ico">📝</div></div>
+    </div>
+
+    <!-- Filtros -->
+    <div style="display:flex; gap:.6rem; flex-wrap:wrap; margin-bottom:1.5rem; align-items:center;">
+      <button class="filter-btn active" onclick="filterKW(this,'all')">Todas (20)</button>
+      <button class="filter-btn" onclick="filterKW(this,'alta')">Alta Prioridade (11)</button>
+      <button class="filter-btn" onclick="filterKW(this,'media')">Média Prioridade (9)</button>
+      <div style="margin-left:auto;">
+        <input type="search" placeholder="🔍 Filtrar KWs..." id="kw-search" style="background:var(--dark-3);border:1px solid rgba(255,255,255,.08);border-radius:var(--r);padding:.5rem .875rem;color:var(--white);font-size:.85rem;outline:none;width:200px;">
+      </div>
+    </div>
+
+    <!-- Tabela -->
+    <div class="adm-card">
+      <table class="adm-table" id="kw-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Palavra-chave</th>
+            <th>Tipo de Busca</th>
+            <th>Intenção</th>
+            <th>Prioridade</th>
+            <th>Volume Est.</th>
+            <th>Conteúdo</th>
+            <th>Ação</th>
+          </tr>
+        </thead>
+        <tbody id="kw-body">
+          <!-- PRINCIPAL -->
+          <tr data-pri="alta">
+            <td style="color:var(--gray-500);">1</td>
+            <td><strong style="color:var(--white);">serralheria Vila Velha</strong> <span style="background:var(--red-light);color:var(--red);font-size:.62rem;padding:.1rem .4rem;border-radius:3px;font-family:var(--font-h);letter-spacing:.1em;text-transform:uppercase;margin-left:.4rem;">PRINCIPAL</span></td>
+            <td><span class="kw-intent" style="color:var(--gray-400);">Head Term</span></td>
+            <td><span class="badge b-info">Navegacional</span></td>
+            <td><span class="kw-pri-alta">● Alta</span></td>
+            <td><div class="kw-vol-bar"><div class="kw-vol-fill" style="width:90%;"></div></div> <span style="font-size:.72rem;color:var(--gray-500); margin-left:.4rem;">~1.600/mês</span></td>
+            <td><span class="badge b-success">✓ Home</span></td>
+            <td><a href="novo-post.html" class="btn btn-dark btn-sm">✏️</a></td>
+          </tr>
+          <!-- SECUNDÁRIAS -->
+          <tr data-pri="alta">
+            <td style="color:var(--gray-500);">2</td>
+            <td>portão automático Vila Velha</td>
+            <td><span class="kw-intent" style="color:var(--gray-400);">Transacional</span></td>
+            <td><span class="badge b-danger">Transacional</span></td>
+            <td><span class="kw-pri-alta">● Alta</span></td>
+            <td><div class="kw-vol-bar"><div class="kw-vol-fill" style="width:80%;"></div></div> <span style="font-size:.72rem;color:var(--gray-500); margin-left:.4rem;">~880/mês</span></td>
+            <td><span class="badge b-success">✓ Post</span></td>
+            <td><a href="novo-post.html" class="btn btn-dark btn-sm">✏️</a></td>
+          </tr>
+          <tr data-pri="alta">
+            <td style="color:var(--gray-500);">3</td>
+            <td>portão automático Cobilândia</td>
+            <td><span class="kw-intent" style="color:var(--gray-400);">Local</span></td>
+            <td><span class="badge b-danger">Transacional</span></td>
+            <td><span class="kw-pri-alta">● Alta</span></td>
+            <td><div class="kw-vol-bar"><div class="kw-vol-fill" style="width:40%;"></div></div> <span style="font-size:.72rem;color:var(--gray-500); margin-left:.4rem;">~320/mês</span></td>
+            <td><span class="badge b-success">✓ Post</span></td>
+            <td><a href="novo-post.html" class="btn btn-dark btn-sm">✏️</a></td>
+          </tr>
+          <tr data-pri="alta">
+            <td style="color:var(--gray-500);">4</td>
+            <td>grades de proteção Vila Velha ES</td>
+            <td><span class="kw-intent" style="color:var(--gray-400);">Transacional</span></td>
+            <td><span class="badge b-danger">Transacional</span></td>
+            <td><span class="kw-pri-alta">● Alta</span></td>
+            <td><div class="kw-vol-bar"><div class="kw-vol-fill" style="width:55%;"></div></div> <span style="font-size:.72rem;color:var(--gray-500); margin-left:.4rem;">~480/mês</span></td>
+            <td><span class="badge b-success">✓ Post</span></td>
+            <td><a href="novo-post.html" class="btn btn-dark btn-sm">✏️</a></td>
+          </tr>
+          <tr data-pri="media">
+            <td style="color:var(--gray-500);">5</td>
+            <td>metalúrgica Vila Velha ES</td>
+            <td><span class="kw-intent" style="color:var(--gray-400);">Categoria</span></td>
+            <td><span class="badge b-info">Informacional</span></td>
+            <td><span class="kw-pri-media">● Média</span></td>
+            <td><div class="kw-vol-bar"><div class="kw-vol-fill" style="width:45%;"></div></div> <span style="font-size:.72rem;color:var(--gray-500); margin-left:.4rem;">~390/mês</span></td>
+            <td><span class="badge b-success">✓ Home</span></td>
+            <td><a href="novo-post.html" class="btn btn-dark btn-sm">✏️</a></td>
+          </tr>
+          <tr data-pri="media">
+            <td style="color:var(--gray-500);">6</td>
+            <td>estrutura metálica Vila Velha</td>
+            <td><span class="kw-intent" style="color:var(--gray-400);">Informacional</span></td>
+            <td><span class="badge b-info">Informacional</span></td>
+            <td><span class="kw-pri-media">● Média</span></td>
+            <td><div class="kw-vol-bar"><div class="kw-vol-fill" style="width:38%;"></div></div> <span style="font-size:.72rem;color:var(--gray-500); margin-left:.4rem;">~320/mês</span></td>
+            <td><span class="badge b-warning">Planejado</span></td>
+            <td><a href="novo-post.html" class="btn btn-dark btn-sm">✏️</a></td>
+          </tr>
+          <tr data-pri="alta">
+            <td style="color:var(--gray-500);">7</td>
+            <td>quanto custa portão automático Vila Velha</td>
+            <td><span class="kw-intent" style="color:var(--gray-400);">Decisão</span></td>
+            <td><span class="badge b-danger">Transacional</span></td>
+            <td><span class="kw-pri-alta">● Alta</span></td>
+            <td><div class="kw-vol-bar"><div class="kw-vol-fill" style="width:62%;"></div></div> <span style="font-size:.72rem;color:var(--gray-500); margin-left:.4rem;">~540/mês</span></td>
+            <td><span class="badge b-warning">Planejado</span></td>
+            <td><a href="novo-post.html" class="btn btn-dark btn-sm">✏️</a></td>
+          </tr>
+          <tr data-pri="alta">
+            <td style="color:var(--gray-500);">8</td>
+            <td>manutenção de portão automático Vila Velha</td>
+            <td><span class="kw-intent" style="color:var(--gray-400);">Transacional</span></td>
+            <td><span class="badge b-danger">Transacional</span></td>
+            <td><span class="kw-pri-alta">● Alta</span></td>
+            <td><div class="kw-vol-bar"><div class="kw-vol-fill" style="width:48%;"></div></div> <span style="font-size:.72rem;color:var(--gray-500); margin-left:.4rem;">~420/mês</span></td>
+            <td><span class="badge b-warning">Planejado</span></td>
+            <td><a href="novo-post.html" class="btn btn-dark btn-sm">✏️</a></td>
+          </tr>
+          <tr data-pri="media">
+            <td style="color:var(--gray-500);">9</td>
+            <td>galpão metálico Vila Velha ES</td>
+            <td><span class="kw-intent" style="color:var(--gray-400);">Transacional</span></td>
+            <td><span class="badge b-danger">Transacional</span></td>
+            <td><span class="kw-pri-media">● Média</span></td>
+            <td><div class="kw-vol-bar"><div class="kw-vol-fill" style="width:30%;"></div></div> <span style="font-size:.72rem;color:var(--gray-500); margin-left:.4rem;">~260/mês</span></td>
+            <td><span class="badge b-gray">Sem conteúdo</span></td>
+            <td><a href="novo-post.html" class="btn btn-dark btn-sm">✏️</a></td>
+          </tr>
+          <tr data-pri="media">
+            <td style="color:var(--gray-500);">10</td>
+            <td>telhado metálico Vila Velha</td>
+            <td><span class="kw-intent" style="color:var(--gray-400);">Transacional</span></td>
+            <td><span class="badge b-danger">Transacional</span></td>
+            <td><span class="kw-pri-media">● Média</span></td>
+            <td><div class="kw-vol-bar"><div class="kw-vol-fill" style="width:27%;"></div></div> <span style="font-size:.72rem;color:var(--gray-500); margin-left:.4rem;">~210/mês</span></td>
+            <td><span class="badge b-gray">Sem conteúdo</span></td>
+            <td><a href="novo-post.html" class="btn btn-dark btn-sm">✏️</a></td>
+          </tr>
+          <tr data-pri="alta">
+            <td style="color:var(--gray-500);">11</td>
+            <td>serralheiro perto de mim Vila Velha</td>
+            <td><span class="kw-intent" style="color:var(--gray-400);">Urgência</span></td>
+            <td><span class="badge b-danger">Transacional</span></td>
+            <td><span class="kw-pri-alta">● Alta</span></td>
+            <td><div class="kw-vol-bar"><div class="kw-vol-fill" style="width:70%;"></div></div> <span style="font-size:.72rem;color:var(--gray-500); margin-left:.4rem;">~620/mês</span></td>
+            <td><span class="badge b-success">✓ Contato</span></td>
+            <td><a href="novo-post.html" class="btn btn-dark btn-sm">✏️</a></td>
+          </tr>
+          <tr data-pri="alta">
+            <td style="color:var(--gray-500);">12</td>
+            <td>orçamento serralheria Vila Velha ES</td>
+            <td><span class="kw-intent" style="color:var(--gray-400);">Decisão</span></td>
+            <td><span class="badge b-danger">Transacional</span></td>
+            <td><span class="kw-pri-alta">● Alta</span></td>
+            <td><div class="kw-vol-bar"><div class="kw-vol-fill" style="width:55%;"></div></div> <span style="font-size:.72rem;color:var(--gray-500); margin-left:.4rem;">~480/mês</span></td>
+            <td><span class="badge b-success">✓ Contato</span></td>
+            <td><a href="novo-post.html" class="btn btn-dark btn-sm">✏️</a></td>
+          </tr>
+          <tr data-pri="alta">
+            <td style="color:var(--gray-500);">13</td>
+            <td>portão de garagem Vila Velha</td>
+            <td><span class="kw-intent" style="color:var(--gray-400);">Transacional</span></td>
+            <td><span class="badge b-danger">Transacional</span></td>
+            <td><span class="kw-pri-alta">● Alta</span></td>
+            <td><div class="kw-vol-bar"><div class="kw-vol-fill" style="width:58%;"></div></div> <span style="font-size:.72rem;color:var(--gray-500); margin-left:.4rem;">~500/mês</span></td>
+            <td><span class="badge b-gray">Sem conteúdo</span></td>
+            <td><a href="novo-post.html" class="btn btn-dark btn-sm">✏️</a></td>
+          </tr>
+          <tr data-pri="media">
+            <td style="color:var(--gray-500);">14</td>
+            <td>grade de ferro Vila Velha</td>
+            <td><span class="kw-intent" style="color:var(--gray-400);">Transacional</span></td>
+            <td><span class="badge b-danger">Transacional</span></td>
+            <td><span class="kw-pri-media">● Média</span></td>
+            <td><div class="kw-vol-bar"><div class="kw-vol-fill" style="width:35%;"></div></div> <span style="font-size:.72rem;color:var(--gray-500); margin-left:.4rem;">~280/mês</span></td>
+            <td><span class="badge b-gray">Sem conteúdo</span></td>
+            <td><a href="novo-post.html" class="btn btn-dark btn-sm">✏️</a></td>
+          </tr>
+          <tr data-pri="alta">
+            <td style="color:var(--gray-500);">15</td>
+            <td>serralheria Cobilândia</td>
+            <td><span class="kw-intent" style="color:var(--gray-400);">Local</span></td>
+            <td><span class="badge b-danger">Transacional</span></td>
+            <td><span class="kw-pri-alta">● Alta</span></td>
+            <td><div class="kw-vol-bar"><div class="kw-vol-fill" style="width:32%;"></div></div> <span style="font-size:.72rem;color:var(--gray-500); margin-left:.4rem;">~270/mês</span></td>
+            <td><span class="badge b-success">✓ Post</span></td>
+            <td><a href="novo-post.html" class="btn btn-dark btn-sm">✏️</a></td>
+          </tr>
+          <tr data-pri="media">
+            <td style="color:var(--gray-500);">16</td>
+            <td>portão basculante Vila Velha ES</td>
+            <td><span class="kw-intent" style="color:var(--gray-400);">Transacional</span></td>
+            <td><span class="badge b-danger">Transacional</span></td>
+            <td><span class="kw-pri-media">● Média</span></td>
+            <td><div class="kw-vol-bar"><div class="kw-vol-fill" style="width:40%;"></div></div> <span style="font-size:.72rem;color:var(--gray-500); margin-left:.4rem;">~340/mês</span></td>
+            <td><span class="badge b-success">✓ Post</span></td>
+            <td><a href="novo-post.html" class="btn btn-dark btn-sm">✏️</a></td>
+          </tr>
+          <tr data-pri="media">
+            <td style="color:var(--gray-500);">17</td>
+            <td>portão pivotante Vila Velha</td>
+            <td><span class="kw-intent" style="color:var(--gray-400);">Transacional</span></td>
+            <td><span class="badge b-danger">Transacional</span></td>
+            <td><span class="kw-pri-media">● Média</span></td>
+            <td><div class="kw-vol-bar"><div class="kw-vol-fill" style="width:35%;"></div></div> <span style="font-size:.72rem;color:var(--gray-500); margin-left:.4rem;">~290/mês</span></td>
+            <td><span class="badge b-success">✓ Post</span></td>
+            <td><a href="novo-post.html" class="btn btn-dark btn-sm">✏️</a></td>
+          </tr>
+          <tr data-pri="media">
+            <td style="color:var(--gray-500);">18</td>
+            <td>cobertura metálica Vila Velha ES</td>
+            <td><span class="kw-intent" style="color:var(--gray-400);">Informacional</span></td>
+            <td><span class="badge b-info">Informacional</span></td>
+            <td><span class="kw-pri-media">● Média</span></td>
+            <td><div class="kw-vol-bar"><div class="kw-vol-fill" style="width:25%;"></div></div> <span style="font-size:.72rem;color:var(--gray-500); margin-left:.4rem;">~200/mês</span></td>
+            <td><span class="badge b-gray">Sem conteúdo</span></td>
+            <td><a href="novo-post.html" class="btn btn-dark btn-sm">✏️</a></td>
+          </tr>
+          <tr data-pri="alta">
+            <td style="color:var(--gray-500);">19</td>
+            <td>serralheria residencial Vila Velha</td>
+            <td><span class="kw-intent" style="color:var(--gray-400);">Transacional</span></td>
+            <td><span class="badge b-danger">Transacional</span></td>
+            <td><span class="kw-pri-alta">● Alta</span></td>
+            <td><div class="kw-vol-bar"><div class="kw-vol-fill" style="width:50%;"></div></div> <span style="font-size:.72rem;color:var(--gray-500); margin-left:.4rem;">~430/mês</span></td>
+            <td><span class="badge b-gray">Sem conteúdo</span></td>
+            <td><a href="novo-post.html" class="btn btn-dark btn-sm">✏️</a></td>
+          </tr>
+          <tr data-pri="alta">
+            <td style="color:var(--gray-500);">20</td>
+            <td>automatização de portão Vila Velha</td>
+            <td><span class="kw-intent" style="color:var(--gray-400);">Transacional</span></td>
+            <td><span class="badge b-danger">Transacional</span></td>
+            <td><span class="kw-pri-alta">● Alta</span></td>
+            <td><div class="kw-vol-bar"><div class="kw-vol-fill" style="width:45%;"></div></div> <span style="font-size:.72rem;color:var(--gray-500); margin-left:.4rem;">~390/mês</span></td>
+            <td><span class="badge b-gray">Sem conteúdo</span></td>
+            <td><a href="novo-post.html" class="btn btn-dark btn-sm">✏️</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+
+<script>
+function filterKW(btn, pri) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#kw-body tr').forEach(tr => {
+    tr.style.display = (pri === 'all' || tr.dataset.pri === pri) ? '' : 'none';
+  });
+}
+document.getElementById('kw-search').addEventListener('input', function() {
+  const q = this.value.toLowerCase();
+  document.querySelectorAll('#kw-body tr').forEach(tr => {
+    tr.style.display = tr.textContent.toLowerCase().includes(q) ? '' : 'none';
+  });
+});
+function addKeyword() {
+  const kw = prompt('Digite a nova palavra-chave:');
+  if (kw && kw.trim()) {
+    alert('Palavra-chave "' + kw + '" adicionada! (Em produção, seria salva no banco de dados)');
+  }
+}
+</script>
+<script>
+function adminLogout() {
+  sessionStorage.removeItem('flash_admin_auth');
+  window.location.replace('login.html');
+}
+</script>
+</body>
+</html>

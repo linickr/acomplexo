@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfólio de Projetos | FLASH – Serralheria em Vila Velha ES</title>
+  <meta name="description" content="Veja o portfólio de projetos da FLASH Metalúrgica em Vila Velha ES. Portões automáticos, grades de proteção, galpões metálicos e estruturas sob medida entregues com qualidade.">
+  <link rel="canonical" href="https://flashmetalurgica.com.br/portfolio.html">
+  <meta property="og:title" content="Portfólio – FLASH Metalúrgica em Vila Velha ES">
+  <meta property="og:description" content="Projetos de portões automáticos, grades, galpões e estruturas metálicas em Vila Velha ES.">
+  <meta property="og:type" content="website">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    .port-full-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; }
+    .port-item-filterable { position: relative; border-radius: var(--r-lg); overflow: hidden; aspect-ratio: 4/3; background: var(--dark-3); cursor: pointer; transition: var(--ease); }
+    .port-item-filterable:hover { transform: scale(1.02); }
+    .port-item-filterable .port-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.9) 0%, transparent 55%); display: flex; flex-direction: column; justify-content: flex-end; padding: 1.5rem; opacity: 0; transition: var(--ease); }
+    .port-item-filterable:hover .port-overlay { opacity: 1; }
+    .port-item-filterable .port-placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .6rem; color: var(--gray-600); background: linear-gradient(135deg, var(--dark-3), var(--dark-4)); }
+    .port-item-filterable .port-placeholder .icon { font-size: 2.5rem; opacity: .3; }
+    .port-item-filterable .port-placeholder .label { font-family: var(--font-h); font-size: .7rem; letter-spacing: .15em; text-transform: uppercase; opacity: .4; }
+    @media (max-width: 768px) { .port-full-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 500px) { .port-full-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<header class="site-header" id="site-header">
+  <div class="container">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <img src="assets/images/logo.png" alt="FLASH Metalúrgica" onerror="this.style.display='none'">
+        <div class="logo-text">
+          <span class="logo-name">FLASH</span>
+          <span class="logo-sub">Metalúrgica &amp; Portas Automáticas</span>
+        </div>
+      </a>
+      <nav class="main-nav">
+        <ul class="nav-links">
+          <li><a href="index.html">Início</a></li>
+          <li><a href="sobre.html">Sobre</a></li>
+          <li><a href="servicos.html">Serviços</a></li>
+          <li><a href="portfolio.html" class="active">Portfólio</a></li>
+          <li><a href="blog/index.html">Blog</a></li>
+          <li><a href="contato.html">Contato</a></li>
+        </ul>
+        <div class="nav-cta">
+          <a href="https://wa.me/5527996586744?text=Olá%2C%20FLASH!%20Gostaria%20de%20um%20orçamento." class="btn btn-primary" target="_blank" rel="noopener">💬 Orçamento Grátis</a>
+        </div>
+      </nav>
+      <button class="hamburger" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="page-hero-inner">
+      <div class="breadcrumb">
+        <a href="index.html">Início</a><span>/</span><span>Portfólio</span>
+      </div>
+      <span class="sec-label">Nossos trabalhos</span>
+      <h1>Portfólio de <span style="color:var(--red)">Projetos</span></h1>
+      <p style="color:var(--gray-400); margin-top:.75rem; max-width:580px; margin-left:auto; margin-right:auto;">Cada projeto é único. Veja o que a FLASH entregou para clientes em Vila Velha, Cobilândia e região.</p>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--dark); padding:5rem 0;">
+  <div class="container">
+    <!-- Filtros -->
+    <div class="port-filter fade-up">
+      <button class="filter-btn active" data-filter="all">Todos</button>
+      <button class="filter-btn" data-filter="portoes">Portões Automáticos</button>
+      <button class="filter-btn" data-filter="grades">Grades de Proteção</button>
+      <button class="filter-btn" data-filter="galpoes">Galpões e Telhados</button>
+      <button class="filter-btn" data-filter="estruturas">Estruturas Metálicas</button>
+      <button class="filter-btn" data-filter="portas">Portas de Aço</button>
+    </div>
+
+    <div class="port-full-grid">
+      <!-- Portões -->
+      <div class="port-item-filterable fade-up" data-cat="portoes">
+        <div class="port-placeholder"><span class="icon">🚪</span><span class="label">Portão Automático de Correr</span></div>
+        <div class="port-overlay">
+          <span class="port-tag">Portões Automáticos</span>
+          <span class="port-title">Portão de Correr em Chapa — Cobilândia</span>
+        </div>
+      </div>
+      <div class="port-item-filterable fade-up" data-cat="portoes">
+        <div class="port-placeholder"><span class="icon">🚪</span><span class="label">Portão Basculante</span></div>
+        <div class="port-overlay">
+          <span class="port-tag">Portões Automáticos</span>
+          <span class="port-title">Portão Basculante — Praia da Costa</span>
+        </div>
+      </div>
+      <div class="port-item-filterable fade-up" data-cat="portoes">
+        <div class="port-placeholder"><span class="icon">🚪</span><span class="label">Portão Pivotante</span></div>
+        <div class="port-overlay">
+          <span class="port-tag">Portões Automáticos</span>
+          <span class="port-title">Portão Pivotante — Itapoã</span>
+        </div>
+      </div>
+      <!-- Grades -->
+      <div class="port-item-filterable fade-up" data-cat="grades">
+        <div class="port-placeholder"><span class="icon">🔒</span><span class="label">Grades de Proteção</span></div>
+        <div class="port-overlay">
+          <span class="port-tag">Grades de Proteção</span>
+          <span class="port-title">Grades Residenciais — Glória</span>
+        </div>
+      </div>
+      <div class="port-item-filterable fade-up" data-cat="grades">
+        <div class="port-placeholder"><span class="icon">🔒</span><span class="label">Grades Comerciais</span></div>
+        <div class="port-overlay">
+          <span class="port-tag">Grades de Proteção</span>
+          <span class="port-title">Grades Comerciais — Coqueiral</span>
+        </div>
+      </div>
+      <div class="port-item-filterable fade-up" data-cat="grades">
+        <div class="port-placeholder"><span class="icon">🔒</span><span class="label">Grade de Varanda</span></div>
+        <div class="port-overlay">
+          <span class="port-tag">Grades de Proteção</span>
+          <span class="port-title">Guarda-corpo de Varanda — Aribiri</span>
+        </div>
+      </div>
+      <!-- Galpões -->
+      <div class="port-item-filterable fade-up" data-cat="galpoes">
+        <div class="port-placeholder"><span class="icon">🏭</span><span class="label">Galpão Industrial</span></div>
+        <div class="port-overlay">
+          <span class="port-tag">Galpões Metálicos</span>
+          <span class="port-title">Galpão Industrial — Vila Velha</span>
+        </div>
+      </div>
+      <div class="port-item-filterable fade-up" data-cat="galpoes">
+        <div class="port-placeholder"><span class="icon">🏭</span><span class="label">Cobertura Metálica</span></div>
+        <div class="port-overlay">
+          <span class="port-tag">Telhados Metálicos</span>
+          <span class="port-title">Cobertura de Estacionamento — Itaparica</span>
+        </div>
+      </div>
+      <div class="port-item-filterable fade-up" data-cat="galpoes">
+        <div class="port-placeholder"><span class="icon">🏭</span><span class="label">Telhado Metálico</span></div>
+        <div class="port-overlay">
+          <span class="port-tag">Telhados Metálicos</span>
+          <span class="port-title">Telhado Residencial — Terra Vermelha</span>
+        </div>
+      </div>
+      <!-- Estruturas -->
+      <div class="port-item-filterable fade-up" data-cat="estruturas">
+        <div class="port-placeholder"><span class="icon">⚙️</span><span class="label">Escada Metálica</span></div>
+        <div class="port-overlay">
+          <span class="port-tag">Estruturas Metálicas</span>
+          <span class="port-title">Escada em L — Cobilândia</span>
+        </div>
+      </div>
+      <div class="port-item-filterable fade-up" data-cat="estruturas">
+        <div class="port-placeholder"><span class="icon">⚙️</span><span class="label">Pergolado Metálico</span></div>
+        <div class="port-overlay">
+          <span class="port-tag">Estruturas Metálicas</span>
+          <span class="port-title">Pergolado de Varanda — Praia da Costa</span>
+        </div>
+      </div>
+      <div class="port-item-filterable fade-up" data-cat="estruturas">
+        <div class="port-placeholder"><span class="icon">⚙️</span><span class="label">Mezanino Industrial</span></div>
+        <div class="port-overlay">
+          <span class="port-tag">Estruturas Metálicas</span>
+          <span class="port-title">Mezanino Comercial — Glória</span>
+        </div>
+      </div>
+      <!-- Portas -->
+      <div class="port-item-filterable fade-up" data-cat="portas">
+        <div class="port-placeholder"><span class="icon">🚧</span><span class="label">Porta de Aço</span></div>
+        <div class="port-overlay">
+          <span class="port-tag">Portas de Aço</span>
+          <span class="port-title">Porta de Entrada — Jardim Marilândia</span>
+        </div>
+      </div>
+      <div class="port-item-filterable fade-up" data-cat="portas">
+        <div class="port-placeholder"><span class="icon">🚧</span><span class="label">Porta Industrial</span></div>
+        <div class="port-overlay">
+          <span class="port-tag">Portas de Aço</span>
+          <span class="port-title">Porta Industrial Dupla — Vila Velha</span>
+        </div>
+      </div>
+      <div class="port-item-filterable fade-up" data-cat="portoes">
+        <div class="port-placeholder"><span class="icon">🚪</span><span class="label">Portão de Correr</span></div>
+        <div class="port-overlay">
+          <span class="port-tag">Portões Automáticos</span>
+          <span class="port-title">Portão de Correr Comercial — Paul</span>
+        </div>
+      </div>
+    </div>
+    <p style="text-align:center; color:var(--gray-500); font-size:.82rem; margin-top:2rem;">
+      📸 Fotos reais serão adicionadas em breve. Entre em contato para conhecer nossos projetos presencialmente.
+    </p>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-sec">
+  <div class="container">
+    <div class="cta-inner">
+      <h2>Seu projeto pode ser o próximo</h2>
+      <p>Solicite um orçamento sem compromisso. Atendemos toda Vila Velha – ES.</p>
+      <div class="cta-btns">
+        <a href="https://wa.me/5527996586744?text=Olá%20FLASH!%20Vi%20o%20portfólio%20e%20quero%20um%20orçamento." class="btn btn-secondary" target="_blank" rel="noopener">💬 Solicitar Orçamento</a>
+        <a href="servicos.html" class="btn btn-outline">Ver Todos os Serviços</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="logo-text" style="margin-bottom:1rem;"><span class="logo-name">FLASH</span><span class="logo-sub">Metalúrgica &amp; Portas Automáticas</span></div>
+        <p class="footer-desc">Serralheria completa em Vila Velha ES — portões automáticos, grades, galpões e estruturas metálicas sob medida desde 2013.</p>
+        <div class="footer-social">
+          <a href="#" class="soc-link" aria-label="Instagram">📷</a>
+          <a href="#" class="soc-link" aria-label="Facebook">👍</a>
+          <a href="https://wa.me/5527996586744" class="soc-link" aria-label="WhatsApp" target="_blank" rel="noopener">💬</a>
+        </div>
+      </div>
+      <div>
+        <h4 class="foot-col-title">Serviços</h4>
+        <ul class="foot-links">
+          <li><a href="servicos.html#portoes">Portões Automáticos</a></li>
+          <li><a href="servicos.html#grades">Grades de Proteção</a></li>
+          <li><a href="servicos.html#galpoes">Galpões Metálicos</a></li>
+          <li><a href="servicos.html#estruturas">Estruturas Metálicas</a></li>
+          <li><a href="servicos.html#portas">Portas de Aço</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="foot-col-title">Links</h4>
+        <ul class="foot-links">
+          <li><a href="index.html">Início</a></li>
+          <li><a href="sobre.html">Sobre</a></li>
+          <li><a href="portfolio.html">Portfólio</a></li>
+          <li><a href="blog/index.html">Blog</a></li>
+          <li><a href="contato.html">Contato</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="foot-col-title">Contato</h4>
+        <div class="foot-contact-item"><span class="foot-ico">📍</span><div class="foot-txt">R. Castelândia, 331 – Cobilândia, Vila Velha – ES, 29111-310</div></div>
+        <div class="foot-contact-item"><span class="foot-ico">📱</span><div class="foot-txt"><a href="tel:+5527996586744">(27) 99658-6744</a></div></div>
+        <div class="foot-contact-item"><span class="foot-ico">🕐</span><div class="foot-txt">Seg–Sex: 8h–18h | Sáb: 8h–13h</div></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="foot-copy">© 2025 <a href="index.html">FLASH – Metalúrgica &amp; Portas Automáticas</a>. Todos os direitos reservados.</p>
+      <p class="foot-nap">FLASH Metalúrgica | R. Castelândia, 331 – Cobilândia – Vila Velha/ES | (27) 99658-6744</p>
+    </div>
+  </div>
+</footer>
+
+<div class="wpp-float">
+  <span class="wpp-tip">Solicitar orçamento grátis!</span>
+  <a href="https://wa.me/5527996586744?text=Olá%2C%20FLASH!%20Quero%20solicitar%20um%20orçamento." class="wpp-btn" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M16 0C7.163 0 0 7.163 0 16c0 2.822.733 5.476 2.014 7.789L0 32l8.417-2.006A15.925 15.925 0 0016 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm0 29.2a13.16 13.16 0 01-6.716-1.836l-.48-.285-4.997 1.19 1.261-4.863-.312-.498A13.159 13.159 0 012.8 16C2.8 8.706 8.706 2.8 16 2.8S29.2 8.706 29.2 16 23.294 29.2 16 29.2zm7.23-9.852c-.396-.198-2.343-1.155-2.706-1.287-.363-.132-.627-.198-.891.198-.264.396-1.022 1.287-1.253 1.551-.23.264-.461.297-.857.099-.396-.198-1.672-.616-3.184-1.964-1.177-1.049-1.97-2.344-2.201-2.74-.23-.396-.024-.61.174-.807.178-.178.396-.462.594-.693.198-.231.264-.396.396-.66.132-.264.066-.495-.033-.693-.099-.198-.891-2.15-1.22-2.942-.322-.772-.649-.667-.891-.679l-.759-.013c-.264 0-.693.099-1.056.495-.363.396-1.385 1.353-1.385 3.3s1.418 3.828 1.616 4.092c.198.264 2.79 4.261 6.759 5.979.945.407 1.682.65 2.256.832.948.302 1.811.259 2.493.157.76-.113 2.343-.958 2.673-1.883.33-.924.33-1.716.231-1.882-.099-.165-.363-.264-.759-.462z"/></svg>
+  </a>
+</div>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

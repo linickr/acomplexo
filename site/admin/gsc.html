@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Search Console – Admin FLASH</title>
+  <meta name="robots" content="noindex, nofollow">
+  <script>if(sessionStorage.getItem("flash_admin_auth")!=="1"){sessionStorage.setItem("flash_redirect",location.href);location.replace("login.html")}</script>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body class="admin-body">
+<div class="admin-layout">
+
+  <aside class="adm-sidebar" id="adm-sidebar">
+    <div class="adm-sidebar-logo">
+      <div class="adm-logo-icon">F</div>
+      <div><div class="adm-logo-name">FLASH</div><div class="adm-logo-sub">Painel Admin</div></div>
+    </div>
+    <nav class="adm-nav">
+      <div class="adm-nav-section">Menu Principal</div>
+      <a href="index.html"><span class="ni">📊</span> Dashboard</a>
+      <a href="posts.html"><span class="ni">📝</span> Gerenciar Posts</a>
+      <a href="novo-post.html"><span class="ni">✏️</span> Novo Post</a>
+      <div class="adm-nav-section">SEO & Conteúdo</div>
+      <a href="agendamento.html"><span class="ni">📅</span> Agendamento</a>
+      <a href="palavras-chave.html"><span class="ni">🔑</span> Palavras-chave</a>
+      <a href="gsc.html" class="active"><span class="ni">📈</span> Search Console</a>
+    </nav>
+    <div class="adm-sidebar-foot">
+      <a href="../index.html" class="adm-site-link" target="_blank">↗ Ver o site ao vivo</a>
+      <button class="adm-logout-btn" onclick="adminLogout()">&#x2192; Sair</button>
+    </div>
+  </aside>
+
+  <main class="adm-main">
+    <div class="adm-topbar">
+      <div class="adm-title-grp">
+        <h1 class="adm-page-title">Google Search Console</h1>
+        <p class="adm-page-sub">Desempenho de busca orgânica — últimos 28 dias</p>
+      </div>
+      <div class="adm-topbar-actions">
+        <select class="btn btn-dark btn-sm" id="period-select">
+          <option value="7">Últimos 7 dias</option>
+          <option value="28" selected>Últimos 28 dias</option>
+          <option value="90">Últimos 90 dias</option>
+        </select>
+        <button class="btn btn-primary btn-sm" onclick="syncGSC()">🔄 Sincronizar GSC</button>
+      </div>
+    </div>
+
+    <!-- Métricas principais -->
+    <div class="gsc-metrics">
+      <div class="gsc-metric">
+        <div class="gsc-met-val">1.247</div>
+        <div class="gsc-met-lbl">Cliques</div>
+        <div class="gsc-met-chg">↑ +18% vs período anterior</div>
+      </div>
+      <div class="gsc-metric">
+        <div class="gsc-met-val">18.640</div>
+        <div class="gsc-met-lbl">Impressões</div>
+        <div class="gsc-met-chg">↑ +24%</div>
+      </div>
+      <div class="gsc-metric">
+        <div class="gsc-met-val">6,7%</div>
+        <div class="gsc-met-lbl">CTR Médio</div>
+        <div class="gsc-met-chg">↑ +0,8%</div>
+      </div>
+      <div class="gsc-metric">
+        <div class="gsc-met-val">11,4</div>
+        <div class="gsc-met-lbl">Posição Média</div>
+        <div class="gsc-met-chg down">↓ -1,2 (melhorou)</div>
+      </div>
+    </div>
+
+    <div class="adm-grid-2">
+      <!-- Gráfico cliques -->
+      <div class="chart-wrap">
+        <div class="chart-head">
+          <span class="chart-ttl">Cliques e Impressões – 28 dias</span>
+          <div style="display:flex; gap:1rem; font-size:.72rem;">
+            <span style="color:var(--red);">⬤ Cliques</span>
+            <span style="color:rgba(204,0,0,.3);">⬤ Impressões</span>
+          </div>
+        </div>
+        <canvas id="chartCliques" height="200"></canvas>
+      </div>
+
+      <!-- Gráfico posição média -->
+      <div class="chart-wrap">
+        <div class="chart-head">
+          <span class="chart-ttl">Posição Média no Google – 28 dias</span>
+          <span class="badge b-success">Melhorando</span>
+        </div>
+        <canvas id="chartPosicao" height="200"></canvas>
+      </div>
+    </div>
+
+    <div class="adm-grid-2">
+      <!-- Top queries -->
+      <div class="adm-card">
+        <div class="adm-card-head">
+          <span class="adm-card-title">Top Consultas de Busca</span>
+          <span class="badge b-gray">28 dias</span>
+        </div>
+        <table class="adm-table">
+          <thead>
+            <tr>
+              <th>Consulta</th>
+              <th>Cliques</th>
+              <th>Impressões</th>
+              <th>CTR</th>
+              <th>Posição</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>serralheria Vila Velha</td>
+              <td>187</td>
+              <td>2.240</td>
+              <td><span style="color:#4CAF50;">8,3%</span></td>
+              <td><span class="badge b-success">#3</span></td>
+            </tr>
+            <tr>
+              <td>portão automático Vila Velha</td>
+              <td>142</td>
+              <td>1.980</td>
+              <td><span style="color:#4CAF50;">7,2%</span></td>
+              <td><span class="badge b-success">#5</span></td>
+            </tr>
+            <tr>
+              <td>flash metalúrgica Vila Velha</td>
+              <td>134</td>
+              <td>890</td>
+              <td><span style="color:#4CAF50;">15,1%</span></td>
+              <td><span class="badge b-success">#1</span></td>
+            </tr>
+            <tr>
+              <td>grades de proteção Vila Velha ES</td>
+              <td>98</td>
+              <td>1.340</td>
+              <td><span style="color:var(--yellow);">7,3%</span></td>
+              <td><span class="badge b-warning">#9</span></td>
+            </tr>
+            <tr>
+              <td>serralheria Cobilândia</td>
+              <td>87</td>
+              <td>720</td>
+              <td><span style="color:#4CAF50;">12,1%</span></td>
+              <td><span class="badge b-success">#4</span></td>
+            </tr>
+            <tr>
+              <td>portão automático Cobilândia</td>
+              <td>76</td>
+              <td>940</td>
+              <td><span style="color:var(--yellow);">8,1%</span></td>
+              <td><span class="badge b-warning">#12</span></td>
+            </tr>
+            <tr>
+              <td>metalúrgica Vila Velha ES</td>
+              <td>71</td>
+              <td>1.020</td>
+              <td><span style="color:var(--yellow);">7,0%</span></td>
+              <td><span class="badge b-warning">#7</span></td>
+            </tr>
+            <tr>
+              <td>quanto custa portão automático Vila Velha</td>
+              <td>64</td>
+              <td>1.180</td>
+              <td><span style="color:var(--yellow);">5,4%</span></td>
+              <td><span class="badge b-info">#14</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Top pages -->
+      <div class="adm-card">
+        <div class="adm-card-head">
+          <span class="adm-card-title">Top Páginas</span>
+          <span class="badge b-gray">28 dias</span>
+        </div>
+        <table class="adm-table">
+          <thead>
+            <tr><th>Página</th><th>Cliques</th><th>CTR</th><th>Posição</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span style="color:var(--red);">/</span> Home</td>
+              <td>421</td>
+              <td>9,2%</td>
+              <td><span class="badge b-success">#3</span></td>
+            </tr>
+            <tr>
+              <td><span style="color:var(--red);">/servicos</span></td>
+              <td>198</td>
+              <td>7,8%</td>
+              <td><span class="badge b-success">#6</span></td>
+            </tr>
+            <tr>
+              <td><span style="color:var(--red);">/blog/portao-automatico...</span></td>
+              <td>187</td>
+              <td>8,4%</td>
+              <td><span class="badge b-success">#5</span></td>
+            </tr>
+            <tr>
+              <td><span style="color:var(--red);">/contato</span></td>
+              <td>156</td>
+              <td>11,2%</td>
+              <td><span class="badge b-success">#4</span></td>
+            </tr>
+            <tr>
+              <td><span style="color:var(--red);">/blog/grades-protecao...</span></td>
+              <td>134</td>
+              <td>6,7%</td>
+              <td><span class="badge b-warning">#9</span></td>
+            </tr>
+            <tr>
+              <td><span style="color:var(--red);">/blog/serralheria-coblandia</span></td>
+              <td>98</td>
+              <td>9,8%</td>
+              <td><span class="badge b-success">#4</span></td>
+            </tr>
+            <tr>
+              <td><span style="color:var(--red);">/sobre</span></td>
+              <td>53</td>
+              <td>5,1%</td>
+              <td><span class="badge b-info">#11</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Erros de indexação e recomendações -->
+    <div class="adm-grid-2">
+      <div class="adm-card">
+        <div class="adm-card-head"><span class="adm-card-title">Status de Indexação</span></div>
+        <div class="adm-card-body">
+          <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:1rem; margin-bottom:1.5rem;">
+            <div style="text-align:center; padding:1rem; background:var(--dark-3); border-radius:var(--r);">
+              <div style="font-family:var(--font-h); font-size:1.6rem; color:#4CAF50;">11</div>
+              <div style="font-size:.72rem; color:var(--gray-500); text-transform:uppercase; letter-spacing:.1em;">Indexadas</div>
+            </div>
+            <div style="text-align:center; padding:1rem; background:var(--dark-3); border-radius:var(--r);">
+              <div style="font-family:var(--font-h); font-size:1.6rem; color:var(--yellow);">2</div>
+              <div style="font-size:.72rem; color:var(--gray-500); text-transform:uppercase; letter-spacing:.1em;">Pendentes</div>
+            </div>
+            <div style="text-align:center; padding:1rem; background:var(--dark-3); border-radius:var(--r);">
+              <div style="font-family:var(--font-h); font-size:1.6rem; color:var(--red);">0</div>
+              <div style="font-size:.72rem; color:var(--gray-500); text-transform:uppercase; letter-spacing:.1em;">Com Erros</div>
+            </div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:.6rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:.6rem .875rem; background:rgba(76,175,80,.08); border-radius:var(--r); border:1px solid rgba(76,175,80,.15);">
+              <span style="font-size:.82rem; color:rgba(255,255,255,.8);">✅ Sitemap enviado e válido</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:.6rem .875rem; background:rgba(76,175,80,.08); border-radius:var(--r); border:1px solid rgba(76,175,80,.15);">
+              <span style="font-size:.82rem; color:rgba(255,255,255,.8);">✅ robots.txt configurado corretamente</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:.6rem .875rem; background:var(--yellow-dim); border-radius:var(--r); border:1px solid rgba(255,215,0,.2);">
+              <span style="font-size:.82rem; color:rgba(255,255,255,.8);">⚠️ 2 páginas aguardando indexação</span>
+              <button class="btn btn-dark btn-sm" style="font-size:.68rem;">Solicitar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="adm-card">
+        <div class="adm-card-head"><span class="adm-card-title">Recomendações SEO</span></div>
+        <div class="adm-card-body">
+          <div style="display:flex; flex-direction:column; gap:.875rem;">
+            <div style="padding:.875rem; background:var(--dark-3); border-radius:var(--r); border-left:3px solid var(--red);">
+              <div style="font-family:var(--font-h); font-size:.82rem; text-transform:uppercase; letter-spacing:.04em; margin-bottom:.3rem;">🎯 Oportunidade de conteúdo</div>
+              <p style="font-size:.8rem; color:var(--gray-500);">"portão de garagem Vila Velha" tem 500 buscas/mês sem conteúdo. Crie um post específico.</p>
+            </div>
+            <div style="padding:.875rem; background:var(--dark-3); border-radius:var(--r); border-left:3px solid var(--yellow);">
+              <div style="font-family:var(--font-h); font-size:.82rem; text-transform:uppercase; letter-spacing:.04em; margin-bottom:.3rem;">🔗 Construção de links</div>
+              <p style="font-size:.8rem; color:var(--gray-500);">Cadastre a FLASH no Google Meu Negócio, Yelp e guias locais de Vila Velha para ganhar autoridade.</p>
+            </div>
+            <div style="padding:.875rem; background:var(--dark-3); border-radius:var(--r); border-left:3px solid #4CAF50;">
+              <div style="font-family:var(--font-h); font-size:.82rem; text-transform:uppercase; letter-spacing:.04em; margin-bottom:.3rem;">📱 Core Web Vitals</div>
+              <p style="font-size:.8rem; color:var(--gray-500);">Todas as páginas estão com CWV aprovado. Bom desempenho mobile em todos os dispositivos.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+// Chart: Cliques e Impressões
+const labels = Array.from({length:28}, (_,i) => {
+  const d = new Date(2025,3,28);
+  d.setDate(d.getDate() + i);
+  return d.getDate() + '/' + (d.getMonth()+1);
+});
+const cliques     = [24,30,28,35,40,38,42,50,48,55,58,62,68,64,70,75,72,80,82,88,90,85,94,98,102,95,110,120];
+const impressoes  = cliques.map(c => Math.round(c * (12 + Math.random() * 4)));
+
+new Chart(document.getElementById('chartCliques'), {
+  type: 'line',
+  data: {
+    labels,
+    datasets: [
+      {
+        label: 'Cliques',
+        data: cliques,
+        borderColor: '#CC0000',
+        backgroundColor: 'rgba(204,0,0,0.08)',
+        borderWidth: 2, pointRadius: 2, tension: 0.4, fill: true
+      },
+      {
+        label: 'Impressões (/10)',
+        data: impressoes.map(v => Math.round(v/10)),
+        borderColor: 'rgba(204,0,0,0.25)',
+        backgroundColor: 'transparent',
+        borderWidth: 1.5, pointRadius: 1, tension: 0.4, borderDash: [4,4]
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { labels: { color: '#777', boxWidth: 12, font: { size: 11 } } } },
+    scales: {
+      x: { grid: { color: 'rgba(255,255,255,0.03)' }, ticks: { color: '#555', maxTicksLimit: 7 } },
+      y: { grid: { color: 'rgba(255,255,255,0.03)' }, ticks: { color: '#555' } }
+    }
+  }
+});
+
+// Chart: Posição Média
+const posicao = [18,17,16,17,15,14,15,14,13,14,12,13,12,11,12,11,10,11,10,9,10,9,8,9,8,9,8,7];
+new Chart(document.getElementById('chartPosicao'), {
+  type: 'line',
+  data: {
+    labels,
+    datasets: [{
+      label: 'Posição Média',
+      data: posicao,
+      borderColor: '#FFD700',
+      backgroundColor: 'rgba(255,215,0,0.06)',
+      borderWidth: 2, pointRadius: 2, tension: 0.4, fill: true
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: 'rgba(255,255,255,0.03)' }, ticks: { color: '#555', maxTicksLimit: 7 } },
+      y: {
+        grid: { color: 'rgba(255,255,255,0.03)' },
+        ticks: { color: '#555' },
+        reverse: true,
+        min: 1, max: 25,
+        title: { display: true, text: 'Posição (menor = melhor)', color: '#555', font: { size: 11 } }
+      }
+    }
+  }
+});
+
+function syncGSC() {
+  const btn = document.querySelector('button[onclick="syncGSC()"]');
+  btn.textContent = '⏳ Sincronizando...';
+  btn.disabled = true;
+  setTimeout(() => {
+    btn.textContent = '✅ Sincronizado!';
+    setTimeout(() => {
+      btn.textContent = '🔄 Sincronizar GSC';
+      btn.disabled = false;
+    }, 2000);
+  }, 1800);
+}
+</script>
+<script>
+function adminLogout() {
+  sessionStorage.removeItem('flash_admin_auth');
+  window.location.replace('login.html');
+}
+</script>
+</body>
+</html>

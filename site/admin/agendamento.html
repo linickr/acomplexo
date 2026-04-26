@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calendário Editorial – Admin FLASH</title>
+  <meta name="robots" content="noindex, nofollow">
+  <script>if(sessionStorage.getItem("flash_admin_auth")!=="1"){sessionStorage.setItem("flash_redirect",location.href);location.replace("login.html")}</script>
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="admin-body">
+<div class="admin-layout">
+
+  <aside class="adm-sidebar" id="adm-sidebar">
+    <div class="adm-sidebar-logo">
+      <div class="adm-logo-icon">F</div>
+      <div><div class="adm-logo-name">FLASH</div><div class="adm-logo-sub">Painel Admin</div></div>
+    </div>
+    <nav class="adm-nav">
+      <div class="adm-nav-section">Menu Principal</div>
+      <a href="index.html"><span class="ni">📊</span> Dashboard</a>
+      <a href="posts.html"><span class="ni">📝</span> Gerenciar Posts</a>
+      <a href="novo-post.html"><span class="ni">✏️</span> Novo Post</a>
+      <div class="adm-nav-section">SEO & Conteúdo</div>
+      <a href="agendamento.html" class="active"><span class="ni">📅</span> Agendamento</a>
+      <a href="palavras-chave.html"><span class="ni">🔑</span> Palavras-chave</a>
+      <a href="gsc.html"><span class="ni">📈</span> Search Console</a>
+    </nav>
+    <div class="adm-sidebar-foot">
+      <a href="../index.html" class="adm-site-link" target="_blank">↗ Ver o site ao vivo</a>
+      <button class="adm-logout-btn" onclick="adminLogout()">&#x2192; Sair</button>
+    </div>
+  </aside>
+
+  <main class="adm-main">
+    <div class="adm-topbar">
+      <div class="adm-title-grp">
+        <h1 class="adm-page-title">Calendário Editorial</h1>
+        <p class="adm-page-sub">Planeje e agende seus posts. Frequência recomendada: 1 post por semana.</p>
+      </div>
+      <div class="adm-topbar-actions">
+        <a href="novo-post.html" class="btn btn-primary btn-sm">+ Novo Post</a>
+      </div>
+    </div>
+
+    <!-- Legenda -->
+    <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-bottom:1.5rem;">
+      <div style="display:flex; align-items:center; gap:.4rem; font-size:.78rem; color:var(--gray-400);"><span style="width:12px;height:12px;background:var(--red);border-radius:2px;display:inline-block;"></span> Publicado</div>
+      <div style="display:flex; align-items:center; gap:.4rem; font-size:.78rem; color:var(--gray-400);"><span style="width:12px;height:12px;background:var(--yellow);border-radius:2px;display:inline-block;"></span> Agendado</div>
+      <div style="display:flex; align-items:center; gap:.4rem; font-size:.78rem; color:var(--gray-400);"><span style="width:12px;height:12px;background:var(--dark-4);border:1px solid rgba(255,255,255,.1);border-radius:2px;display:inline-block;"></span> Rascunho</div>
+      <div style="display:flex; align-items:center; gap:.4rem; font-size:.78rem; color:var(--gray-400);"><span style="width:12px;height:12px;border:2px solid var(--yellow);border-radius:2px;display:inline-block;"></span> Hoje</div>
+    </div>
+
+    <!-- Calendário Maio 2025 -->
+    <div class="adm-card" style="margin-bottom:1.5rem;">
+      <div class="adm-card-head">
+        <div class="cal-header" style="width:100%;">
+          <button class="btn btn-dark btn-sm" id="prev-month">←</button>
+          <span class="cal-month" id="cal-month-label">Maio 2025</span>
+          <button class="btn btn-dark btn-sm" id="next-month">→</button>
+        </div>
+      </div>
+      <div class="adm-card-body">
+        <div class="cal-grid-head">
+          <span>Dom</span><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span>
+        </div>
+        <div class="cal-grid" id="cal-grid"></div>
+      </div>
+    </div>
+
+    <!-- Próximos posts planejados -->
+    <div class="adm-card">
+      <div class="adm-card-head">
+        <span class="adm-card-title">Posts Planejados – Calendário Editorial (6 semanas)</span>
+        <a href="novo-post.html" class="btn btn-primary btn-sm">+ Adicionar</a>
+      </div>
+      <table class="adm-table">
+        <thead>
+          <tr>
+            <th>Semana</th>
+            <th>Título do Post</th>
+            <th>Palavra-chave Foco</th>
+            <th>Status</th>
+            <th>Publicação</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="color:var(--yellow); font-family:var(--font-h);">Semana 1</td>
+            <td>Portão automático em Vila Velha: tipos, preços e como escolher</td>
+            <td><span style="color:var(--red); font-size:.78rem;">portão automático Vila Velha</span></td>
+            <td><span class="badge b-success">Publicado</span></td>
+            <td>03/05/2025</td>
+            <td><a href="novo-post.html" class="btn btn-dark btn-sm">✏️</a></td>
+          </tr>
+          <tr>
+            <td style="color:var(--yellow); font-family:var(--font-h);">Semana 2</td>
+            <td>Grades de proteção: o guia completo para sua casa em Vila Velha</td>
+            <td><span style="color:var(--red); font-size:.78rem;">grades de proteção Vila Velha ES</span></td>
+            <td><span class="badge b-success">Publicado</span></td>
+            <td>10/05/2025</td>
+            <td><a href="novo-post.html" class="btn btn-dark btn-sm">✏️</a></td>
+          </tr>
+          <tr>
+            <td style="color:var(--yellow); font-family:var(--font-h);">Semana 3</td>
+            <td>Serralheria em Cobilândia: por que a FLASH é a escolha certa?</td>
+            <td><span style="color:var(--red); font-size:.78rem;">serralheria Cobilândia</span></td>
+            <td><span class="badge b-success">Publicado</span></td>
+            <td>17/05/2025</td>
+            <td><a href="novo-post.html" class="btn btn-dark btn-sm">✏️</a></td>
+          </tr>
+          <tr>
+            <td style="color:var(--yellow); font-family:var(--font-h);">Semana 4</td>
+            <td>Quanto custa instalar um portão automático em Vila Velha?</td>
+            <td><span style="color:var(--red); font-size:.78rem;">quanto custa portão automático Vila Velha</span></td>
+            <td><span class="badge b-warning">Agendado</span></td>
+            <td>24/05/2025</td>
+            <td><a href="novo-post.html" class="btn btn-dark btn-sm">✏️</a></td>
+          </tr>
+          <tr>
+            <td style="color:var(--yellow); font-family:var(--font-h);">Semana 5</td>
+            <td>Estrutura metálica: vantagens para residências e empresas no ES</td>
+            <td><span style="color:var(--red); font-size:.78rem;">estrutura metálica Vila Velha</span></td>
+            <td><span class="badge b-gray">Rascunho</span></td>
+            <td>31/05/2025</td>
+            <td><a href="novo-post.html" class="btn btn-dark btn-sm">✏️</a></td>
+          </tr>
+          <tr>
+            <td style="color:var(--yellow); font-family:var(--font-h);">Semana 6</td>
+            <td>Manutenção de portão automático: quando fazer e por quê?</td>
+            <td><span style="color:var(--red); font-size:.78rem;">manutenção portão automático Vila Velha</span></td>
+            <td><span class="badge b-gray">Rascunho</span></td>
+            <td>07/06/2025</td>
+            <td><a href="novo-post.html" class="btn btn-dark btn-sm">✏️</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+
+<script>
+const POSTS = {
+  '2025-05-03': { title: 'Portão automático em Vila Velha', status: 'publicado' },
+  '2025-05-10': { title: 'Grades de proteção em Vila Velha', status: 'publicado' },
+  '2025-05-17': { title: 'Serralheria em Cobilândia', status: 'publicado' },
+  '2025-05-24': { title: 'Quanto custa portão automático?', status: 'agendado' },
+  '2025-05-31': { title: 'Estrutura metálica: vantagens', status: 'rascunho' },
+};
+
+let currentMonth = 4; // Maio (0-based)
+let currentYear  = 2025;
+const today = new Date();
+
+const monthNames = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+
+function renderCalendar() {
+  document.getElementById('cal-month-label').textContent = monthNames[currentMonth] + ' ' + currentYear;
+  const grid = document.getElementById('cal-grid');
+  grid.innerHTML = '';
+  const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+  for (let i = 0; i < firstDay; i++) {
+    const cell = document.createElement('div');
+    cell.className = 'cal-cell empty';
+    grid.appendChild(cell);
+  }
+  for (let d = 1; d <= daysInMonth; d++) {
+    const dateKey = currentYear + '-' + String(currentMonth+1).padStart(2,'0') + '-' + String(d).padStart(2,'0');
+    const post = POSTS[dateKey];
+    const isToday = today.getFullYear() === currentYear && today.getMonth() === currentMonth && today.getDate() === d;
+    const cell = document.createElement('div');
+    cell.className = 'cal-cell' + (post ? ' has-post' : '') + (isToday ? ' today' : '');
+    let html = `<div class="cal-day">${d}</div>`;
+    if (post) {
+      const color = post.status === 'publicado' ? 'var(--red)' : post.status === 'agendado' ? 'var(--yellow)' : 'rgba(255,255,255,.2)';
+      html += `<div class="cal-post" style="background:${color};color:${post.status === 'agendado' ? 'var(--black)' : 'var(--white)'};">${post.title}</div>`;
+    }
+    cell.innerHTML = html;
+    cell.title = post ? post.title : 'Clique para adicionar post';
+    if (!post) cell.style.cursor = 'pointer';
+    cell.addEventListener('click', () => { if (!post) window.location.href = 'novo-post.html'; });
+    grid.appendChild(cell);
+  }
+}
+
+document.getElementById('prev-month').addEventListener('click', () => {
+  currentMonth--;
+  if (currentMonth < 0) { currentMonth = 11; currentYear--; }
+  renderCalendar();
+});
+document.getElementById('next-month').addEventListener('click', () => {
+  currentMonth++;
+  if (currentMonth > 11) { currentMonth = 0; currentYear++; }
+  renderCalendar();
+});
+
+renderCalendar();
+</script>
+<script>
+function adminLogout() {
+  sessionStorage.removeItem('flash_admin_auth');
+  window.location.replace('login.html');
+}
+</script>
+</body>
+</html>
